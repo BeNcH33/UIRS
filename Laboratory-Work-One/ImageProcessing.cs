@@ -356,21 +356,73 @@ namespace Laboratory_Work_One
         public static void CheckClassPointOfList(List<List<List<double>>> listCheck, List<List<List<double>>> listTest)
         {
             double p = 0;
+
+            List<List<double>> check = new List<List<double>>();
+
+            foreach (var item in listTest)
+            {
+                double item0 = 0;
+                double item1 = 0;
+                double item2 = 0;
+                double item3 = 0;
+                double item4 = 0;
+                double item5 = 0;
+
+                foreach (var it in item)
+                {
+                    item0 += it[0];
+                    item1 += it[1];
+                    item2 += it[2];
+                    item3 += it[3];
+                    item4 += it[4];
+                    item5 += it[5];
+                }
+                check.Add(new List<double>() { item0/1600, item1/1600, item2/1600, item3/1600, item4/1600, item5/1600 });
+
+            }
+
             int T = 0;
             for (int i = 0; i < listCheck.Count; i++)
             {
+                int D = 0;
                 for (int j = 0; j < listCheck[i].Count; j++)
                 {
                     var itemPoint = listCheck[i][j];
 
-                    if (GetMinCount(listTest, itemPoint) == i) T++;
+                    if (GetMinLastCount(check, itemPoint) == i) D++;
                 }
-
-                //p += (double)T / 400;
-                //Console.WriteLine(p/5);
+                Console.WriteLine((double)D /400);
             }
             Console.WriteLine((double)T / 2000);
 
+
+
+            //int T = 0;
+            //for (int i = 0; i < listCheck.Count; i++)
+            //{
+            //    for (int j = 0; j < listCheck[i].Count; j++)
+            //    {
+            //        var itemPoint = listCheck[i][j];
+
+            //        if (GetMinCount(listTest, itemPoint) == i) T++;
+            //    }
+
+            //    //p += (double)T / 400;
+            //    //Console.WriteLine(p/5);
+            //}
+            //Console.WriteLine((double)T / 2000);
+
+        }
+        private static int GetMinLastCount(List<List<double>> listTest, List<double> listCheck)
+        {
+            List<double> results = new List<double>();
+
+            foreach (var item in listTest)
+            {
+                results.Add(GetDistances(listCheck, item));
+            }
+
+            return results.IndexOf(results.Min());
         }
         private static int GetMinCount(List<List<List<double>>> listTest, List<double> listCheck)
         {
@@ -396,7 +448,7 @@ namespace Laboratory_Work_One
 
             for (int x = 0; x < 6; x++)
             {
-                if (x == 1) continue;// исключаем признаки
+                //if (x == 1) continue;// исключаем признаки
                 doubleSum += (listCheck[x] - listTest[x]) * (listCheck[x] - listTest[x]);
             }
 
