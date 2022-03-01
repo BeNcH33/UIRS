@@ -370,12 +370,15 @@ namespace Laboratory_Work_One
 
                 foreach (var it in item)
                 {
-                    item0 += it[0];
-                    item1 += it[1];
-                    item2 += it[2];
-                    item3 += it[3];
-                    item4 += it[4];
-                    item5 += it[5];
+                    if (it.Count > 0)
+                    {
+                        item0 += it[0];
+                        item1 += it[1];
+                        item2 += it[2];
+                        item3 += it[3];
+                        item4 += it[4];
+                        item5 += it[5];
+                    }
                 }
                 check.Add(new List<double>() { item0/1600, item1/1600, item2/1600, item3/1600, item4/1600, item5/1600 });
 
@@ -389,7 +392,10 @@ namespace Laboratory_Work_One
                 {
                     var itemPoint = listCheck[i][j];
 
-                    if (GetMinLastCount(check, itemPoint) == i) D++;
+                    if (itemPoint.Count > 0)
+                    {
+                        if (GetMinLastCount(itemPoint, check) == i) D++;
+                    }
                 }
                 Console.WriteLine((double)D /400);
             }
@@ -413,7 +419,7 @@ namespace Laboratory_Work_One
             //Console.WriteLine((double)T / 2000);
 
         }
-        private static int GetMinLastCount(List<List<double>> listTest, List<double> listCheck)
+        private static int GetMinLastCount(List<double> listCheck, List<List<double>> listTest)
         {
             List<double> results = new List<double>();
 
@@ -524,6 +530,8 @@ namespace Laboratory_Work_One
 
                     foreach (var value in splitBySeparator)
                     {
+                        if (value == "") continue;
+
                         vectors.Add(double.Parse(value));
                     }
                 }

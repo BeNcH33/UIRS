@@ -9,7 +9,7 @@ namespace Laboratory_Work_One
         public const string ORIGIN_PATH = @"Z:\UIRS\PHOTO";
 
         public const string RESULT_PATH = @"Z:\UIRS\CSV";
-        public const string RESULTSIGNS_PATH = @"Z:\UIRS\SIGNS";
+        public const string RESULTSIGNS_PATH = @"G:\J\8-й семестр\УИРС\csvLab1Stats";
 
         static void Main(string[] args)
         {
@@ -20,20 +20,20 @@ namespace Laboratory_Work_One
             
             List<List<List<double>>> listTestOfPoints = ImageProcessing.GetListPoin(new List<string>()
             {
-            @"Z:\UIRS\SIGNS\Signs 1",
-            @"Z:\UIRS\SIGNS\Signs 3",
-            @"Z:\UIRS\SIGNS\Signs 5",
-            @"Z:\UIRS\SIGNS\Signs 7",
-            @"Z:\UIRS\SIGNS\Signs 9",
+                RESULTSIGNS_PATH + @"\Stats 1",
+                RESULTSIGNS_PATH + @"\Stats 2",
+                RESULTSIGNS_PATH + @"\Stats 3",
+                RESULTSIGNS_PATH + @"\Stats 4",
+                RESULTSIGNS_PATH + @"\Stats 5",
             }, "test");
 
             List<List<List<double>>> listCheckOfPoints = ImageProcessing.GetListPoin(new List<string>()
             {
-            @"Z:\UIRS\SIGNS\Signs 1",
-            @"Z:\UIRS\SIGNS\Signs 3",
-            @"Z:\UIRS\SIGNS\Signs 5",
-            @"Z:\UIRS\SIGNS\Signs 7",
-            @"Z:\UIRS\SIGNS\Signs 9",
+                RESULTSIGNS_PATH + @"\Stats 1",
+                RESULTSIGNS_PATH + @"\Stats 2",
+                RESULTSIGNS_PATH + @"\Stats 3",
+                RESULTSIGNS_PATH + @"\Stats 4",
+                RESULTSIGNS_PATH + @"\Stats 5",
             }, "point");
 
             ImageProcessing.CheckClassPointOfList(listCheckOfPoints, listTestOfPoints);
