@@ -391,6 +391,7 @@ namespace Laboratory_Work_One
 
                     if (GetMinLastCount(check, itemPoint) == i) D++;
                 }
+                T += D;
                 Console.WriteLine((double)D /400);
             }
             Console.WriteLine((double)T / 2000);
