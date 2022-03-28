@@ -9,7 +9,7 @@ namespace Laboratory_Work_One
         public const string ORIGIN_PATH = @"Z:\UIRS\PHOTO";
 
         public const string RESULT_PATH = @"Z:\UIRS\CSV";
-        public const string RESULTSIGNS_PATH = @"G:\J\8-й семестр\УИРС\csvLab1Stats";
+        public const string RESULTSIGNS_PATH = @"Z:\UIRS\SIGNS";
 
         static void Main(string[] args)
         {
@@ -20,25 +20,28 @@ namespace Laboratory_Work_One
             
             List<List<List<double>>> listTestOfPoints = ImageProcessing.GetListPoin(new List<string>()
             {
-                RESULTSIGNS_PATH + @"\Stats 1",
-                RESULTSIGNS_PATH + @"\Stats 2",
-                RESULTSIGNS_PATH + @"\Stats 3",
-                RESULTSIGNS_PATH + @"\Stats 4",
-                RESULTSIGNS_PATH + @"\Stats 5",
+                RESULTSIGNS_PATH + @"\Signs 1",
+                RESULTSIGNS_PATH + @"\Signs 3",
+                RESULTSIGNS_PATH + @"\Signs 5",
+                RESULTSIGNS_PATH + @"\Signs 7",
+                RESULTSIGNS_PATH + @"\Signs 9",
             }, "test");
 
             List<List<List<double>>> listCheckOfPoints = ImageProcessing.GetListPoin(new List<string>()
             {
-                RESULTSIGNS_PATH + @"\Stats 1",
-                RESULTSIGNS_PATH + @"\Stats 2",
-                RESULTSIGNS_PATH + @"\Stats 3",
-                RESULTSIGNS_PATH + @"\Stats 4",
-                RESULTSIGNS_PATH + @"\Stats 5",
+                RESULTSIGNS_PATH + @"\Signs 1",
+                RESULTSIGNS_PATH + @"\Signs 3",
+                RESULTSIGNS_PATH + @"\Signs 5",
+                RESULTSIGNS_PATH + @"\Signs 7",
+                RESULTSIGNS_PATH + @"\Signs 9",
             }, "point");
 
-            ImageProcessing.CheckClassPointOfList(listCheckOfPoints, listTestOfPoints);
+            //ImageProcessing.CheckClassPointOfList(listCheckOfPoints, listTestOfPoints);
+
+            ImageProcessing.PerformLaboratoryWorkThreeSemesterTwo(listTestOfPoints, listCheckOfPoints);
 
             Console.WriteLine("Завершено!");
+            Console.WriteLine();
 
             Console.ReadKey();
         }

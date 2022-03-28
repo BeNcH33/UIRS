@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Accord.Math;
 
 namespace Laboratory_Work_One
 {
@@ -397,26 +398,10 @@ namespace Laboratory_Work_One
                         if (GetMinLastCount(itemPoint, check) == i) D++;
                     }
                 }
+                T += D;
                 Console.WriteLine((double)D /400);
             }
             Console.WriteLine((double)T / 2000);
-
-
-
-            //int T = 0;
-            //for (int i = 0; i < listCheck.Count; i++)
-            //{
-            //    for (int j = 0; j < listCheck[i].Count; j++)
-            //    {
-            //        var itemPoint = listCheck[i][j];
-
-            //        if (GetMinCount(listTest, itemPoint) == i) T++;
-            //    }
-
-            //    //p += (double)T / 400;
-            //    //Console.WriteLine(p/5);
-            //}
-            //Console.WriteLine((double)T / 2000);
 
         }
         private static int GetMinLastCount(List<double> listCheck, List<List<double>> listTest)
@@ -537,6 +522,328 @@ namespace Laboratory_Work_One
                 }
             }
             return vectors;
+        }
+
+        //*****************************New_Lab_3***********************************//
+        //public static void CalculateLab3(List<List<List<double>>> listOfTestVectors, List<List<List<double>>> listOfCheckVectors)
+        //{
+        //    double[,] X = CountAvgX(listOfTestVectors);
+        //    double[,] matrixA = CountMatrixA(listOfTestVectors, X);
+
+        //    int g = listOfTestVectors.Count;
+        //    int nkTest = listOfTestVectors[0].Count;
+        //    int nkCheck = listOfCheckVectors[0].Count;
+        //    int p = listOfTestVectors[0][0].Count;
+
+        //    double[,] B = CountBki(matrixA, X, g, nkTest, p);
+        //    double[] B0 = CountBk0(X, g, p, B);
+
+        //    double[,] recognizeArray = new double[g, nkCheck];
+
+        //    for (int k = 0; k < g; k++)
+        //    {
+        //        for (int n = 0; n < nkCheck; n++)
+        //        {
+        //            for (int i = 0; i < p; i++)
+        //            {
+        //                recognizeArray[k, n] = CountMaxHk(X, g, p, B, B0, listOfCheckVectors[k][n].ToArray());
+        //            }
+        //        }
+        //    }
+
+        //}
+
+        //public static double[,] CountAvgX(List<List<List<double>>> listOfVectors)
+        //{
+        //    double[,] X = new double[listOfVectors.Count, listOfVectors[0][0].Count];
+        //    for (int a = 0; a < listOfVectors.Count; a++)
+        //    {
+        //        for (int y = 0; y < listOfVectors[0].Count; y++)
+        //        {
+        //            for (int u = 0; u < listOfVectors[0][0].Count; u++)
+        //            {
+        //                if (listOfVectors[a][y].Count > 0)
+        //                {
+        //                    X[a, u] += listOfVectors[a][y][u];
+        //                }
+        //            }
+        //        }
+        //    }
+        //    for (int a = 0; a < listOfVectors.Count; a++)
+        //    {
+        //        for (int u = 0; u < listOfVectors[0][0].Count; u++)
+        //        {
+        //            X[a, u] = X[a, u] / listOfVectors[0].Count;
+        //        }
+        //    }
+        //    return X;
+        //}
+        //public static double[,] CountMatrixA(List<List<List<double>>> listOfVectors, double[,] X)
+        //{
+
+        //    double[,] matrixW = new double[listOfVectors[0][0].Count, listOfVectors[0][0].Count];
+
+        //    double temp1 = X.GetLength(0);
+        //    double temp2 = X.GetLength(1);
+
+        //    for (int i = 0; i < listOfVectors[0][0].Count; i++)
+        //    {
+        //        for (int j = 0; j < listOfVectors[0][0].Count; j++)
+        //        {
+        //            double sumK = 0;
+        //            for (int k = 0; k < listOfVectors.Count; k++)
+        //            {
+        //                double sumM = 0;
+        //                for (int m = 0; m < listOfVectors[0].Count; m++)
+        //                {
+        //                    if (listOfVectors[k][m].Count > 0)
+        //                    {
+        //                        sumM += (listOfVectors[k][m][i] - X[k, i]) * (listOfVectors[k][m][j] - X[k, j]);
+        //                    }
+        //                }
+        //                sumK += sumM;
+        //            }
+        //            matrixW[i, j] = sumK;
+        //        }
+        //    }
+
+        //    double[,] matrixA = matrixW.Inverse();
+
+        //    return matrixA;
+        //}
+
+        //public static double[,] CountBki(double[,] matrixA, double[,] X, int g, int nk, int p)
+        //{
+        //    int n = nk * g;
+        //    double[,] B = new double[g, p];
+        //    for (int k = 0; k < g; k++)
+        //    {
+        //        for (int i = 0; i < p; i++)
+        //        {
+        //            double sum = 0;
+        //            for (int j = 0; j < p; j++)
+        //            {
+        //                sum += matrixA[i, j] * X[k, j];
+        //            }
+        //            B[k, i] = (n - g) * sum;
+        //        }
+        //    }
+        //    return B;
+        //}
+
+        //public static double[] CountBk0(double[,] X, int g, int p, double[,] B)
+        //{
+        //    double[] B0 = new double[g];
+        //    for (int k = 0; k < g; k++)
+        //    {
+        //        double sum = 0;
+        //        for (int i = 0; i < p; i++)
+        //        {
+        //            for (int j = 0; j < p; j++)
+        //            {
+        //                sum += B[k, i] *  X[k, j];
+        //            }
+        //        }
+        //        B0[k] = -0.5 * sum;
+        //    }
+        //    return B0;
+        //}
+
+        //public static double CountMaxHk(double[,] X, int g, int p, double[,] B, double[] B0, double[] x)
+        //{
+        //    double[] H = new double[g];
+        //    for (int k = 0; k < g; k++)
+        //    {
+        //        H[k] = B0[k];
+        //        double sum = 0;
+        //        for (int i = 0; i < p; i++)
+        //        {
+        //            sum += B[k, i] * x[i];  
+        //        }
+        //    }
+        //    int indexOfMaxElementOfH = -1;
+        //    double maxH = Double.MinValue;
+
+        //    for (int l = 0; l < H.Length; l++)
+        //    {
+        //        if (H[l] > maxH)
+        //        {
+        //            maxH = H[l];
+        //            indexOfMaxElementOfH = l;
+        //        }
+        //    }
+
+        //    return indexOfMaxElementOfH;
+        //}
+
+
+        public static void PerformLaboratoryWorkThreeSemesterTwo(List<List<List<double>>> trainingSample, List<List<List<double>>> recognitionSample)
+        {
+            var X = GetAverageValues(trainingSample);
+
+            var matrixA = GetMatrixA(trainingSample, X);
+
+            int numberOfClasses = trainingSample.Count;
+            int numberOfObservations = trainingSample[0].Count;
+            int numberOfFeatures = trainingSample[0][0].Count;
+
+            var Bki = GetBki(matrixA, X, numberOfClasses, numberOfObservations, numberOfFeatures);
+
+            var Bk0 = GetBk0(X, numberOfClasses, numberOfFeatures, Bki);
+
+            List<int[]> recognitionArray = new List<int[]>();
+            for (int k = 0; k < numberOfClasses; k++)
+            {
+                for (int m = 0; m < recognitionSample[0].Count; m++)
+                {
+                    var result = GetNumberOfClassTestSample(X, numberOfClasses, numberOfFeatures, Bki, Bk0, recognitionSample[k][m]);
+                    Console.WriteLine("(" + k + ";" + m + "): " + result);
+                    recognitionArray.Add(new int[2] {k, (int)result} );
+                }
+            }
+
+            CountRecognitionStatistics(numberOfClasses, recognitionSample[0].Count, recognitionArray);
+
+            return;
+        }
+
+        private static void CountRecognitionStatistics(int numberOfClasses, int numberOfObservations, List<int[]> recognitionArray)
+        {
+            double[] statisticsArray = new double[numberOfClasses + 1];
+            for (int k = 0; k < numberOfClasses; k++)
+            {
+                for (int m = k * numberOfObservations; m < (k + 1) * numberOfObservations; m++)
+                {
+                    if (recognitionArray[m][0] == recognitionArray[m][1])
+                    {
+                        statisticsArray[k] += 1;
+                        statisticsArray[statisticsArray.Length - 1] += 1;
+                    }
+                }
+            }
+            for (int k = 0; k < numberOfClasses; k++)
+            {
+                statisticsArray[k] = statisticsArray[k] / numberOfObservations;
+                Console.WriteLine(statisticsArray[k]);
+            }
+            statisticsArray[statisticsArray.Length - 1] = statisticsArray[statisticsArray.Length - 1] / (numberOfClasses * numberOfObservations);
+            Console.WriteLine(statisticsArray[statisticsArray.Length - 1]);
+        }
+
+        private static double[,] GetMatrixA(List<List<List<double>>> trainingSample, double[,] X)
+        {
+            int countOfFeatures = trainingSample[0][0].Count;
+
+            double[,] matrixW = new double[countOfFeatures, countOfFeatures];
+
+            for (int i = 0; i < countOfFeatures; i++)
+            {
+                for (int j = 0; j < countOfFeatures; j++)
+                {
+                    double sumK = 0;
+                    for (int k = 0; k < trainingSample.Count; k++)
+                    {
+                        double sumM = 0;
+                        for (int m = 0; m < trainingSample[0].Count; m++)
+                        {
+                            if (trainingSample[k][m].Count > 0)
+                            {
+                                sumM += (trainingSample[k][m][i] - X[k, i]) * (trainingSample[k][m][j] - X[k, j]);
+                            }
+                        }
+                        sumK += sumM;
+                    }
+
+                    matrixW[i, j] = sumK;
+                }
+            }
+
+            return matrixW.Inverse();
+        }
+
+        private static double[,] GetAverageValues(List<List<List<double>>> trainingSample)
+        {
+            double[,] result = new double[trainingSample.Count, trainingSample[0][0].Count];
+            for (int m = 0; m < trainingSample[0][0].Count; m++)
+            {
+                for (int i = 0; i < trainingSample.Count; i++)
+                {
+                    double sum = 0.0;
+                    for (int j = 0; j < trainingSample[i].Count; j++)
+                    {
+                        if (trainingSample[i][j].Count > 0)
+                        {
+                            sum += trainingSample[i][j][m];
+                        }
+                    }
+
+                    result[i, m] = sum / trainingSample[0].Count;
+                }
+            }
+
+            return result;
+        }
+
+        private static double[,] GetBki(double[,] matrixA, double[,] averageValues, int numberOfClasses, int numberOfObservations, int numberOfFeatures)
+        {
+            int n = numberOfObservations * numberOfClasses;
+
+            double[,] result = new double[numberOfClasses, numberOfFeatures];
+
+            for (int k = 0; k < numberOfClasses; k++)
+            {
+                for (int i = 0; i < numberOfFeatures; i++)
+                {
+                    double sum = 0;
+                    for (int j = 0; j < numberOfFeatures; j++)
+                    {
+                        sum += matrixA[i, j] * averageValues[k, j];
+                    }
+
+                    result[k, i] = (n - numberOfClasses) * sum;
+                }
+            }
+
+            return result;
+        }
+
+        private static double[] GetBk0(double[,] averageValues, int numberOfClasses, int numberOfFeatures, double[,] Bki)
+        {
+            double[] result = new double[numberOfClasses];
+            for (int k = 0; k < numberOfClasses; k++)
+            {
+                double sum = 0;
+                for (int i = 0; i < numberOfFeatures; i++)
+                {
+                    sum += Bki[k, i] * averageValues[k, i];
+                }
+
+                result[k] = -0.5 * sum;
+            }
+
+            return result;
+        }
+
+        public static double GetNumberOfClassTestSample(double[,] X, int numberOfClasses, int numberOfFeatures, double[,] Bki, double[] Bk0, List<double> testSample)
+        {
+            double[] H = new double[numberOfClasses];
+            for (int k = 0; k < numberOfClasses; k++)
+            {
+                H[k] = Bk0[k];
+                for (int i = 0; i < numberOfFeatures; i++)
+                {
+                    if (testSample.Count > 0)
+                    {
+                        H[k] += Bki[k, i] * testSample[i];
+                    }
+                    else
+                    {
+                        H[k] = 0;
+                    }
+                }
+            }
+
+            return H.IndexOf(H.Max());
         }
     }
 }
